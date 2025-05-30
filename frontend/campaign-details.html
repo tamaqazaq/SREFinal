@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Details</title>
+    <link rel="icon" href="logo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <style>
+        .container {
+            max-width: 570px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .campaign-header {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        #campaign-media {
+            flex: 1;
+        }
+
+        .campaign-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .campaign-img,
+        .campaign-video {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin: 0 0 15px;
+            color: #333;
+            font-size: 1.8em;
+        }
+
+        .info {
+            font-size: 1.1em;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .progress-container {
+            width: 100%;
+            background: #e0e0e0;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 20px;
+            position: relative;
+        }
+
+        .progress-bar {
+            background: #4caf50;
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+            border-radius: 0; /* No rounding in CSS */
+        }
+
+
+        .amount-info {
+            font-size: 1em;
+            color: #333;
+        }
+
+        #donate-btn {
+            background-color: #0f4b31;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            width: 100%;
+            text-align: center;
+            display: block;
+        }
+
+        #donate-btn:hover {
+            background-color: #073f07;
+        }
+
+        .campaign-details {
+            margin-top: 40px;
+        }
+
+        #toggle-donations-btn {
+            background-color: #0f4b31;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        #donations-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .donation-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .donation-item {
+            background: #f1f1f1;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="/static/index.html">
+                <img src="logo.png" width="60px" alt="logo">
+            </a>
+    
+        </div>
+        <div class="search-box">
+            <form id="searchForm">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search for campaigns...">
+                <button type="submit" style="display:none;">Search</button>
+            </form>
+        </div>
+        <div class="buttons">
+            <a href="/static/campaign.html" class="btn" id = "campaign-menu">My Campaigns</a>
+            <a href="/static/myDonations.html" class="btn" >My Donations</a>
+            <a href="/static/admin.html" class="btn" id="Admin">Admin</a>
+            <a href="/static/login.html" class="btn login-btn">Login</a>
+            <a href="#" class="btn logout-btn" style="display:none;">Logout</a>
+            
+        </div>
+    
+    </header>
+    
+    <nav>
+        <ul>
+            <ul>
+                <ul>
+                    <li><a href="?category=Social%20Impact">Social Impact</a></li>
+                    <li><a href="?category=Education%20%26%20Research">Education & Research</a></li>
+                    <li><a href="?category=Creative%20Arts">Creative Arts</a></li>
+                    <li><a href="?category=Technology%20%26%20Innovation">Technology & Innovation</a></li>
+                    <li><a href="?category=Environment%20%26%20Sustainability">Environment & Sustainability</a></li>
+                    <li><a href="?category=General%20%26%20Miscellaneous">General & Miscellaneous</a></li>
+                </ul>
+            </ul>
+    
+        </ul>
+    </nav>
+
+<div class="container">
+    <div class="campaign-header">
+        <div id="campaign-media">
+            <img id="campaign-image" class="campaign-img" src="#" alt="Campaign Image">
+        </div>
+
+        <div class="campaign-info">
+            <h2 id="campaign-title">Campaign Title</h2>
+            <p id="campaign-description">Campaign description goes here...</p>
+            <div class="info"><strong>Goal:</strong> $<span id="campaign-goal">0</span></div>
+            <div class="info"><strong>Amount Raised:</strong> $<span id="campaign-raised">0</span></div>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="amount-info">
+                <span id="progress-percent">0%</span> of goal reached
+            </div>
+
+            <button id="donate-btn">Donate Now</button>
+        </div>
+    </div>
+
+    <div class="campaign-details">
+
+    </div>
+
+    <button id="toggle-donations-btn">View Donations</button>
+    <div id="donations-container">
+        <h3>Recent Donations</h3>
+        <ul class="donation-list" id="donation-list"></ul>
+    </div>
+</div>
+
+<script src="/static/js/details.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+</body>
+</html>

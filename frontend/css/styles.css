@@ -1,0 +1,376 @@
+body {
+    font-family: 'Abhaya Libre', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #f1f1f5;
+}
+
+.logo img {
+    width: 60px;
+    height: auto;
+    clip-path: circle(50%);
+}
+
+/* Styling for buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px;
+    font-size: 14px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #e2e6ea;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 2px -2px gray;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #14a800;
+    margin: 10px;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 10px 0;
+    background: #2f2d2d;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: rgb(249, 245, 245);
+    font-weight: 600;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px 10px 40px;
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    font-size: 16px;
+    outline: none;
+    background: white;
+}
+
+.search-box i {
+    position: absolute;
+    left: 15px;
+    color: gray;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px 0;
+}
+
+.stats-container {
+    display: flex;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.stat-box {
+    padding: 20px 40px;
+    text-align: center;
+    border-right: 1px solid #e0e0e0;
+}
+
+.stat-box:last-child {
+    border-right: none;
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: bold;
+    color: #166534;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+
+#background-coins {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Убеждаемся, что они не мешают контенту */
+    pointer-events: none; /* Не мешаем кликам и взаимодействию */
+}
+
+.coin {
+    position: absolute;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    background: radial-gradient(circle, #FFD700 10%, #FFC107 50%, #B8860B 100%);
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+    transform-style: preserve-3d;
+    width: 50px;
+    height: 50px;
+    animation: floatCoin 5s infinite ease-in-out,  rotateCoins 5s infinite linear;
+}
+
+@keyframes floatCoin {
+    0% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(-20px); opacity: 0.8; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+
+@keyframes rotateCoins {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+.buttons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #0f4b31; /* Dark green background */
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    margin: 5px;
+}
+
+header .buttons a {
+    margin: 0 15px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    background-color: #0f4b31; /* Dark green background */
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+header .buttons a:hover {
+    background-color: #1acb5e;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.buttons a:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+    background-color: #0f7a00;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 600px;
+    padding: 12px 15px 12px 40px;
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    font-size: 16px;
+    outline: none;
+    background: white url('https://cdn-icons-png.flaticon.com/512/622/622669.png') no-repeat 10px center;
+    background-size: 20px;
+}
+
+.search-input::placeholder {
+    color: gray;
+}
+
+
+.category {
+    font-size: 14px;
+    color: #666;
+}
+
+.description {
+    font-size: 14px;
+    color: #333;
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.organizer {
+    font-size: 14px;
+    color: #555;
+}
+
+
+
+
+.actions {
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 8px 12px;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.donate-btn {
+    background: #28a745;
+}
+
+.share-btn {
+    background: #007bff;
+    border: none;
+    cursor: pointer;
+}
+
+.social-buttons {
+    display: flex; /* or block */
+    gap: 10px;
+}
+/* SECTION STYLING */
+.campaigns-container {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Individual Campaign Card */
+.campaign-card {
+    background: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.campaign-card:hover {
+    transform: translateY(-2px); /* Subtle hover lift */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Media (Image/Video) */
+.campaign-media {
+    width: 100%;
+    height: 160px;             /* Adjust for uniform height */
+    overflow: hidden;
+    background: #eee;          /* Fallback background if image fails */
+}
+.campaign-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;         /* Crops images uniformly */
+}
+
+/* Main Card Content */
+.campaign-content {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 20px;        /* Comfortable padding around text */
+    gap: 0.6rem;               /* Spacing between text elements */
+    flex: 1;                   /* Let content grow to fill leftover space */
+}
+
+/* Campaign Title */
+.campaign-content h3 {
+    font-size: 1.4rem;         /* Larger than default */
+    margin: 0;
+    color: #333;
+    font-weight: 700;
+}
+
+/* Category, Organizer, etc. */
+.campaign-content p {
+    margin: 0;                 /* We'll rely on gap above */
+    line-height: 1.4;
+    font-size: 1.1rem;         /* Slightly bigger text */
+    color: #555;
+}
+
+/* Progress Bar */
+.progress-bar {
+    background: #eaeaea;
+    border-radius: 5px;
+    height: 10px;
+    margin: 6px 0;
+    overflow: hidden;
+}
+.progress-bar .progress {
+    background: #28a745;
+    height: 100%;
+}
+
+/* Actions: Donate Button at the bottom */
+.actions {
+    margin-top: auto;          /* Push the button to the bottom if there's extra text */
+    text-align: center;
+}
+.donate-btn {
+    display: inline-block;
+    background: #0f4b31;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background 0.3s, transform 0.2s;
+}
+.donate-btn:hover {
+    background: #073f07;
+    transform: translateY(-2px);
+}

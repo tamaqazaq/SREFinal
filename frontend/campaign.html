@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campaigns - Crowdfunding</title>
+  <link rel="icon" href="logo.png" type="image/x-icon" />
+  <link rel="stylesheet" href="/static/css/styles.css">
+
+
+  <!-- Google Fonts -->
+  <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+          rel="stylesheet"
+  />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet"
+  />
+
+  <!-- Bootstrap CSS (for modals, collapse, etc.) -->
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+
+  <!-- Open Graph Meta -->
+  <meta property="og:title" content="Save the Rainforest" />
+  <meta
+          property="og:description"
+          content="This campaign is for raising funds to protect the Amazon rainforest."
+  />
+  <meta
+          property="og:image"
+          content="https://yourdomain.com/path/to/image.jpg"
+  />
+  <meta property="og:url" content="https://yourdomain.com/campaigns/15" />
+
+  <style>
+    /* Global Styles */
+    body {
+      background-color: #f4f4f4;
+      font-family: "Abhaya Libre", serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      color: #333;
+    }
+    h1,
+    h2,
+    h3 {
+      font-family: "Montserrat", sans-serif;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+      margin: 0;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+
+
+
+    /* Main Container */
+    .main-container {
+      max-width: 550px;
+      margin: 50px auto;
+      padding: 30px;
+    }
+
+    /* Create Campaign Form */
+    #create-form .card-body {
+      padding: 30px;
+    }
+    #create-form h3 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #create-form input,
+    #create-form textarea,
+    #create-form select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: border 0.3s ease;
+    }
+    #create-form input:focus,
+    #create-form textarea:focus,
+    #create-form select:focus {
+      border-color: #0f4b31;
+      outline: none;
+    }
+    #create-form textarea {
+      resize: none;
+      height: 100px;
+    }
+    #create-form button {
+      width: 100%;
+      background: #0f4b31;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #create-form button:hover {
+      background: #073f07;
+    }
+
+    /* Campaign Card Styling */
+    .campaign-card {
+      background: #fff;
+      border-radius: 10px;               /* Softer rounded corners */
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      margin-bottom: 30px;               /* More space below each card */
+      font-size: 1.2rem;
+      border: 1px solid #eaeaea;         /* Subtle border */
+    }
+
+    /* Instead of .campaign-body, you're using .card-content */
+    .card-content {
+      padding: 30px;                     /* More padding for breathing room */
+    }
+
+    .card-content h3 {
+      font-size: 2.5rem;                 /* Larger title */
+      margin-bottom: 20px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .card-content p {
+      font-size: 1.2rem;                 /* Larger, more readable text */
+      color: #555;
+      margin-bottom: 15px;
+      line-height: 1.6;                  /* Comfortable line spacing */
+    }
+
+    .campaign-media {
+      margin: 20px 0;                    /* Space above and below media */
+    }
+
+    .campaign-media img,
+    .campaign-media video {
+      width: 100%;
+      display: block;
+      border-radius: 5px;                /* Slight rounding for images/videos */
+    }
+
+    /* Redesigned Social Buttons */
+    .social-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+    .social-buttons .btn {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 5px;
+      padding: 8px 12px;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .btn.btn-primary {
+      background-color: #28a745; /* New background color */
+      border-color: #28a745;     /* New border color */
+    }
+
+    .btn.btn-primary:hover {
+      background-color: #218838; /* Darker shade on hover */
+      border-color: #1e7e34;
+    }
+    /* Twitter Button: white background, colored border & text */
+    .btn-twitter {
+      background-color: #fff;
+      border: 2px solid #1da1f2;
+      color: #1da1f2;
+    }
+    .btn-twitter:hover {
+      background-color: #1da1f2;
+      color: #fff;
+    }
+    /* LinkedIn Button */
+    .btn-linkedin {
+      background-color: #fff;
+      border: 2px solid #0077b5;
+      color: #0077b5;
+    }
+    .btn-linkedin:hover {
+      background-color: #0077b5;
+      color: #fff;
+    }
+    .social-buttons .btn svg {
+      margin-right: 8px;
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* Edit & Delete Buttons */
+    .campaign-actions {
+      text-align: center;
+    }
+    .campaign-actions button {
+      border: none;
+      padding: 8px 12px;
+      margin: 5px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .btn-edit {
+      background-color: #28a745;
+      color: #fff;
+    }
+    .btn-edit:hover {
+      background-color: #218838;
+      transform: translateY(-2px);
+    }
+    .btn-delete {
+      background-color: #c0392b;
+      color: #fff;
+    }
+    .btn-delete:hover {
+      background-color: #a93226;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+        <a href="/static/index.html">
+            <img src="logo.png" width="60px" alt="logo">
+        </a>
+
+    </div>
+    <div class="search-box">
+        <form id="searchForm">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search for campaigns...">
+            <button type="submit" style="display:none;">Search</button>
+        </form>
+    </div>
+    <div class="buttons">
+        <a href="/static/campaign.html" class="btn" id = "campaign-menu">My Campaigns</a>
+        <a href="/static/myDonations.html" class="btn" >My Donations</a>
+        <a href="/static/admin.html" class="btn" id="Admin">Admin</a>
+        <a href="/static/login.html" class="btn login-btn">Login</a>
+        <a href="#" class="btn logout-btn" style="display:none;">Logout</a>
+        
+    </div>
+
+</header>
+
+<nav>
+    <ul>
+        <ul>
+            <ul>
+                <li><a href="?category=Social%20Impact">Social Impact</a></li>
+                <li><a href="?category=Education%20%26%20Research">Education & Research</a></li>
+                <li><a href="?category=Creative%20Arts">Creative Arts</a></li>
+                <li><a href="?category=Technology%20%26%20Innovation">Technology & Innovation</a></li>
+                <li><a href="?category=Environment%20%26%20Sustainability">Environment & Sustainability</a></li>
+                <li><a href="?category=General%20%26%20Miscellaneous">General & Miscellaneous</a></li>
+            </ul>
+        </ul>
+
+    </ul>
+</nav>
+
+
+<div class="main-container">
+  <div class="d-flex justify-content-end my-3">
+    <button
+            class="btn btn-primary"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#create-form"
+            aria-expanded="false"
+            aria-controls="create-form"
+    >
+      Create New Campaign
+    </button>
+  </div>
+
+  <!-- Create Campaign Form (Collapsible) -->
+  <div class="collapse" id="create-form">
+    <div class="card">
+      <div class="card-body">
+        <h3>Create Campaign</h3>
+        <input type="text" id="create-title" placeholder="Campaign Title" />
+        <textarea id="create-description" placeholder="Description"></textarea>
+        <input type="number" id="create-target-amount" placeholder="Target Amount" />
+        <select id="create-category">
+          <option value="Social Impact">Social Impact</option>
+          <option value="Education & Research">Education & Research</option>
+          <option value="Creative Arts">Creative Arts</option>
+          <option value="Technology & Innovation">Technology & Innovation</option>
+          <option value="Environment & Sustainability">Environment & Sustainability</option>
+          <option value="General & Miscellaneous">General & Miscellaneous</option>
+        </select>
+        <select id="create-status">
+          <option value="active">Active</option>
+          <option value="completed">Completed</option>
+          <option value="inactive">Inactive</option>
+        </select>
+        <input type="file" id="create-media" accept="image/*, video/*" />
+        <button onclick="createCampaign()">Create Campaign</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Campaigns List -->
+  <h2 class="text-center my-4">All Campaigns</h2>
+  <div id="user-campaign-list">
+    <!-- Example Campaign Card -->
+    <div class="campaign campaign-card">
+      <div class="campaign-media">
+        <!-- Replace with video if needed -->
+        <img src="https://via.placeholder.com/900x400" alt="Campaign Media" />
+      </div>
+      <div class="campaign-body">
+        <h3 class="campaign-title">Save the Rainforest</h3>
+        <p class="campaign-description">
+          This campaign is for raising funds to protect the Amazon rainforest.
+        </p>
+        <!-- Redesigned Social Share Buttons -->
+        <div class="social-buttons">
+          <a
+                  href="https://twitter.com/intent/tweet?url=https://yourcrowdfundingurl.com/campaigns/15&text=Save%20the%20Rainforest"
+                  target="_blank"
+                  class="btn btn-twitter"
+          >
+            <svg viewBox="0 0 24 24">
+              <path
+                      d="M23.954 4.569c-.885.389-1.83.654-2.825.775
+                       1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127
+                       1.184-.896-.957-2.173-1.555-3.591-1.555-3.42 0-5.966 3.156-5.175
+                       6.533-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.214-.669 5.108
+                       1.523 6.574-.807-.026-1.566-.248-2.228-.616-.054 2.281 1.581
+                       4.415 3.949 4.89-.693.188-1.452.232-2.224.084.63 1.953 2.445
+                       3.376 4.604 3.418-2.07 1.625-4.678 2.348-7.29 2.04 2.179 1.394
+                       4.768 2.214 7.557 2.214 9.142 0 14.307-7.721 13.995-14.646.961-.695
+                       1.796-1.562 2.457-2.549z"
+              />
+            </svg>
+            Twitter
+          </a>
+          <a
+                  href="https://www.linkedin.com/shareArticle?mini=true&url=https://yourcrowdfundingurl.com/campaigns/15&title=Save%20the%20Rainforest&summary=This%20campaign%20is%20for%20raising%20funds%20to%20protect%20the%20Amazon%20rainforest."
+                  target="_blank"
+                  class="btn btn-linkedin"
+          >
+            <svg viewBox="0 0 24 24">
+              <path
+                      d="M22.23 0H1.77C.79 0 0 .775 0 1.732V22.27c0
+                       .956.79 1.73 1.77 1.73h20.46c.98 0 1.77-.775
+                       1.77-1.73V1.732C24 .775 23.21 0 22.23 0zM7.05
+                       20.452H3.56V9h3.49v11.452zM5.3 7.682c-1.11 0-2.01-.91-2.01-2.033
+                       0-1.12.9-2.034 2.01-2.034s2.01.914 2.01 2.034c0 1.122-.9 2.033-2.01
+                       2.033zm14.15 12.77h-3.48V14.34c0-1.453-.03-3.325-2.025-3.325-2.03 0-2.34
+                       1.584-2.34 3.22v6.217h-3.48V9h3.34v1.57h.05c.47-.9
+                       1.61-1.848 3.31-1.848 3.55 0 4.21 2.34 4.21
+                       5.383v6.347z"
+              />
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+        <!-- Edit & Delete Buttons -->
+        <div class="campaign-actions">
+          <button class="btn-edit" onclick="editCampaign()">Edit</button>
+          <button class="btn-delete" onclick="deleteCampaign()">Delete</button>
+        </div>
+      </div>
+    </div>
+    <!-- More campaign cards can be added dynamically -->
+  </div>
+</div>
+
+<!-- Edit Campaign Modal -->
+<div
+        class="modal fade"
+        id="editCampaignModal"
+        tabindex="-1"
+        aria-labelledby="editCampaignModalLabel"
+        aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="editCampaignForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editCampaignModalLabel">
+            Edit Campaign
+          </h5>
+          <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="editCampaignId" />
+          <div class="mb-3">
+            <label for="editTitle" class="form-label">Title</label>
+            <input type="text" class="form-control" id="editTitle" required />
+          </div>
+          <div class="mb-3">
+            <label for="editDescription" class="form-label">Description</label>
+            <textarea class="form-control" id="editDescription" rows="3" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="editTargetAmount" class="form-label">Target Amount</label>
+            <input type="number" class="form-control" id="editTargetAmount" required />
+          </div>
+          <div class="mb-3">
+            <label for="editStatus" class="form-label">Status</label>
+            <select class="form-select" id="editStatus">
+              <option value="active">Active</option>
+              <option value="completed">Completed</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="editCategory" class="form-label">Category</label>
+            <select class="form-select" id="editCategory">
+              <option value="Social Impact">Social Impact</option>
+              <option value="Education & Research">Education & Research</option>
+              <option value="Creative Arts">Creative Arts</option>
+              <option value="Technology & Innovation">Technology & Innovation</option>
+              <option value="Environment & Sustainability">Environment & Sustainability</option>
+              <option value="General & Miscellaneous">General & Miscellaneous</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="editMedia" class="form-label">Media</label>
+            <input type="file" class="form-control" id="editMedia" accept="image/*, video/*" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap & JS Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/auth.js"></script>
+<script src="/static/js/userCampaign.js"></script>
+
+</body>
+</html>

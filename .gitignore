@@ -1,0 +1,23 @@
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+.env
+*.iml
+.idea/
+misc.xml
+modules.xml
+vcs.xml
+/iac/sre-final-460613-a9fe8054b162.json
+/node_modules
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+*.tfplan
+crash.log
