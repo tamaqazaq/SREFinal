@@ -17,8 +17,10 @@ func GetTwitterShareLink(targetURL string, text string) string {
 func GetLinkedInShareLink(targetURL, title, summary string) string {
 	baseURL := "https://www.linkedin.com/shareArticle?mini=true&url="
 	return fmt.Sprintf("%s%s&title=%s&summary=%s&source=%s",
-		baseURL,
-		url.QueryEscape(targetURL),
-		url.QueryEscape(title),
-		url.QueryEscape(summary))
+	baseURL,
+	url.QueryEscape(targetURL),
+	url.QueryEscape(title),
+	url.QueryEscape(summary),
+	"LinkedIn")
+
 }
