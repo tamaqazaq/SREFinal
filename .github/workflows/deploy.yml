@@ -37,23 +37,24 @@ jobs:
       run: go test ./...
 
     - name: Build app
-      run: go build -o app main.go
+      run: go build -o app ./cmd
 
     - name: Copy app to GCP VM
       uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ secrets.GCP_VM_IP }}
-        username: debian
+        username: sus
         key: ${{ secrets.GCP_SSH_KEY }}
         source: "app"
-        target: "/home/debian/app"
+        target: "/home/sus/app"
 
     - name: Restart app on GCP VM
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v1.0.0
       with:
         host: ${{ secrets.GCP_VM_IP }}
         username: sus
         key: ${{ secrets.GCP_SSH_KEY }}
         script: |
-          pkill app || true
+          cd /home/sus/app
+          pkill -f ./app || true
           nohup ./app > app.log 2>&1 &
