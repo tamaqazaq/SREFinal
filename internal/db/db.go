@@ -3,6 +3,8 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	"github.com/joho/godotenv"
+	_ "github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"log"
 	"os"
@@ -11,7 +13,6 @@ import (
 var DB *sql.DB
 
 func InitDB() {
-
 	dsn := fmt.Sprintf(
 		"postgres://%s:%s@%s:%s/%s?sslmode=disable",
 		os.Getenv("DB_USER"),
@@ -32,15 +33,14 @@ func InitDB() {
 		log.Fatalf("Failed to ping database: %v", err)
 	}
 
-	log.Println("✅ Database connected successfully!")
+	log.Println("Database connected successfully!")
 }
-
 func CheckDBConnection() error {
 	err := DB.Ping()
 	if err != nil {
-		log.Printf("❌ Database connection failed: %v", err)
+		log.Printf("Database connection failed: %v", err)
 		return err
 	}
-	log.Println("✅ Database connection is healthy.")
+	log.Println("Database connection is healthy.")
 	return nil
 }

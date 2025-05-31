@@ -4,12 +4,12 @@ import (
 	"github.com/gemdivk/Crowdfunding-system/internal/db"
 	"github.com/gemdivk/Crowdfunding-system/internal/routes"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"github.com/zsais/go-gin-prometheus"
 	"log"
 )
 
 func main() {
-
 	db.InitDB()
 	db.CheckDBConnection()
 

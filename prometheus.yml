@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: 'render-prod'
+    static_configs:
+      - targets: ['srefinal.onrender.com']
