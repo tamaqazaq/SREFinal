@@ -21,12 +21,6 @@ variable "instance_name" {
   default     = "go-monolith-vm"
 }
 
-variable "db_instance_name" {
-  description = "Cloud SQL instance name"
-  type        = string
-  default     = "go-postgres-db"
-}
-
 variable "db_password" {
   description = "Postgres DB password"
   type        = string
