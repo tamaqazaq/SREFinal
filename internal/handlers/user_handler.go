@@ -37,8 +37,7 @@ func RegisterUser(c *gin.Context) {
 		return
 	}
 
-	APP_HOST := os.Getenv("APP_HOST") // Добавь в .env, например: http://34.122.12.99:8080
-	verificationLink := fmt.Sprintf("%s/verify-email?token=%s", APP_HOST, token)
+	verificationLink := fmt.Sprintf("https://srefinal.onrender.com/verify-email?token=%s", token)
 
 	subject := "Welcome to Qadam! Please verify your email"
 	body := fmt.Sprintf(
