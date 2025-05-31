@@ -2,7 +2,7 @@ name: Go CI/CD Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "deploy" ]
 
 jobs:
   build-test-deploy:
@@ -50,7 +50,7 @@ jobs:
 
     - name: Restart app on GCP VM
       uses: appleboy/ssh-action@master
-      with:
+      with:ы
         host: ${{ secrets.GCP_VM_IP }}
         username: debian
         key: ${{ secrets.GCP_SSH_KEY }}
