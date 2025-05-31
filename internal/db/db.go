@@ -13,6 +13,11 @@ import (
 var DB *sql.DB
 
 func InitDB() {
+	err1 := godotenv.Load()
+	if err1 != nil {
+		log.Fatalf("Error loading .env file: %v", err1)
+	}
+
 	dsn := fmt.Sprintf(
 		"postgres://%s:%s@%s:%s/%s?sslmode=disable",
 		os.Getenv("DB_USER"),
