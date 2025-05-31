@@ -9,7 +9,7 @@ async function fetchDonations() {
     try {
 
 
-        const response = await fetch(`http://localhost:8080/donations/my/${userId}`, {
+        const response = await fetch(`/donations/my/${userId}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

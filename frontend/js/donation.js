@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             try {
 
-                const paymentIntentResponse = await fetch("http://localhost:8080/create-payment-intent", {
+                const paymentIntentResponse = await fetch("/create-payment-intent", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({   paymentMethodId: paymentMethod.id,
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 console.log("Payment successful:", paymentIntent.id);
 
                 // Step 3: Send Payment ID to backend to record the donation
-                const donationResponse = await fetch(`http://localhost:8080/campaigns/${campaignId}/donations/`, {
+                const donationResponse = await fetch(`/campaigns/${campaignId}/donations/`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

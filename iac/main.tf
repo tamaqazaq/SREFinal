@@ -1,30 +1,16 @@
-resource "google_sql_database_instance" "postgres" {
-  name             = "sre-postgres"
-  database_version = "POSTGRES_13"
-  region           = var.region
-
-  settings {
-    tier = "db-f1-micro"
-
-    ip_configuration {
-      ipv4_enabled = true
-      authorized_networks {
-        name  = "allow-all"
-        value = "0.0.0.0/0"
-      }
-    }
-  }
+data "google_sql_database_instance" "existing" {
+  name = "sre-postgres"
 }
 
 resource "google_sql_user" "postgres_user" {
   name     = "postgres"
-  instance = google_sql_database_instance.postgres.name
+  instance = data.google_sql_database_instance.existing.name
   password = var.db_password
 }
 
-resource "google_sql_database" "appdb" {
+data "google_sql_database" "appdb" {
   name     = "appdb"
-  instance = google_sql_database_instance.postgres.name
+  instance = data.google_sql_database_instance.existing.name
 }
 
 resource "google_compute_instance" "go_app_instance" {
@@ -32,7 +18,7 @@ resource "google_compute_instance" "go_app_instance" {
   machine_type = "e2-medium"
   zone         = var.zone
 
-  depends_on = [google_sql_database_instance.postgres]
+
 
   boot_disk {
     initialize_params {
@@ -67,7 +53,7 @@ resource "google_compute_instance" "go_app_instance" {
 
     # Set up .env file
     cat <<EOF > .env
-DB_HOST=34.41.114.8
+DB_HOST=${data.google_sql_database_instance.existing.ip_address[0].ip_address}
 DB_PORT=5432
 DB_USER=postgres
 DB_PASSWORD=${var.db_password}
@@ -80,7 +66,7 @@ SMTP_PASSWORD=...
 EOF
 
     # Export env vars explicitly
-    export DB_HOST=34.41.114.8
+    export DB_HOST=${data.google_sql_database_instance.existing.ip_address[0].ip_address}
     export DB_PORT=5432
     export DB_USER=postgres
     export DB_PASSWORD=${var.db_password}
@@ -99,4 +85,3 @@ EOF
 
   tags = ["http-server"]
 }
-

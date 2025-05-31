@@ -68,7 +68,7 @@ async function fetchCampaigns(query = "", category = "", targetAmount = "", amou
     if (targetAmount) params.set("target_amount", targetAmount);
     if (amountRaised) params.set("amount_raised", amountRaised);
 
-    const url = `http://localhost:8080/campaigns?${params.toString()}`;
+    const url = `/campaigns?${params.toString()}`;
     console.log("Fetching campaigns with URL:", url);
 
     // If a category is selected, update the UI to show the filter form

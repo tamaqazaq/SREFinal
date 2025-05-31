@@ -9,7 +9,7 @@ terraform {
 }
 
 provider "google" {
-  credentials = file("sre-final-460613-79de80926799.json")
+  credentials = file("sre-final-460613-a9fe8054b162.json")
   project     = var.project_id
   region      = var.region
   zone        = "us-central1-a"
