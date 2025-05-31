@@ -179,19 +179,17 @@ func UploadFileHandler(c *gin.Context) {
 		return
 	}
 
-	// Save file locally
 	filePath := fmt.Sprintf("./uploads/%s", file.Filename)
 	if err := c.SaveUploadedFile(file, filePath); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save file"})
 		return
 	}
 
-	// Generate file URL (assuming you're serving files from `/uploads`)
-	fileURL := fmt.Sprintf("http://localhost:8080/uploads/%s", file.Filename)
+	fileURL := fmt.Sprintf("https://srefinal.onrender.com/uploads/%s", file.Filename)
 
-	// Return the URL in JSON response
 	c.JSON(http.StatusOK, gin.H{"success": true, "file_url": fileURL})
 }
+
 func SearchCampaignsHandler(c *gin.Context) {
 	// Get search query from request URL (e.g., ?query=keyword)
 	query := c.DefaultQuery("query", "")
