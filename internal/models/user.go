@@ -58,10 +58,6 @@ func Authenticate(email, password string) (*User, error) {
 		return nil, err
 	}
 
-	if !user.IsVerified {
-		return nil, errors.New("email not verified")
-	}
-
 	if err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password)); err != nil {
 		return nil, errors.New("invalid email or password")
 	}
